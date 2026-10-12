@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="bg">
+<head>
+    <link rel="stylesheet" href="css.css">
+    <script src="https://cdn.jsdelivr.net/npm/tunajs@1.0.2/tuna.js"></script>
+</head>
+<html class="bg">
+    <body class="">
+        <h2 class="title">Music Programming - CA2</h2>
+        <div class="center">
+            <div id="container" class="">
+                <input id="inputFile" type="file" accept=" .mp3, .wav">
+                <!-- <audio id="audioPlayer" controls></audio> -->
+                <!-- <button onclick="play()">Submit</button> -->
+            <div class="audioContainer">
+                <h4>Audio Effects</h4>
+                <input type="checkbox" id="effect1" name="effect1" value="Delay" onclick="validate('effect1','slideContainer')">
+                <label for="effect1">Delay</label><br>
+                <div class="slideContainer" style="display: none;" id="slideContainer">
+                    <div class="control-row">
+                        <label for="delayFeedback">Feedback</label>
+                        <input type="range" min="0" max="100" value="45" class="slider" id="delayFeedback">
+                        <span class="value" id="delayFeedbackOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="delayTime">DelayTime (ms)</label>
+                        <input type="range" min="1" max="500" value="100" class="slider" id="delayTime">
+                        <span class="value" id="delayTimeOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="delayWetLevel">WetLevel</label>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="delayWetLevel">
+                        <span class="value" id="delayWetLevelOutput"></span>
+                    </div>
+                </div>
+                <input type="checkbox" id="effect2" name="effect2" value="Chorus" onclick="validate('effect2','slideContainer2')">
+                <label for="effect2">Chorus</label><br>
+                <div class="slideContainer" style="display: none;" id="slideContainer2">
+                    <div class="control-row">
+                        <label for="chorusRate">Rate</label>
+                        <input type="range" min="0" max="10" step="0.1" value="1.5" class="slider" id="chorusRate">
+                        <span class="value" id="chorusRateOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="chorusFeedback">Feedback</label>
+                        <input type="range" min="0" max="100" value="60" class="slider" id="chorusFeedback">
+                        <span class="value" id="chorusFeedbackOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="chorusDelay">Delay (ms)</label>
+                        <input type="range" min="0" max="10" step="0.001" value="4.5" class="slider" id="chorusDelay">
+                        <span class="value" id="chorusDelayOutput"></span>
+                    </div>
+                </div>
+                <input type="checkbox" id="effect3" name="effect3" value="Compression" onclick="validate('effect3','slideContainer1')">
+                <label for="effect3">Compressor</label><br>
+                <div class="slideContainer" style="display: none;" id="slideContainer1">
+                    <div class="control-row">
+                        <label for="compressorThreshold">Threshold (dB)</label>
+                        <input type="range" min="-100" max="0" value="-20" class="slider" id="compressorThreshold">
+                        <span class="value" id="compressorThresholdOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="compressorMakeup">Makeup Gain (dB)</label>
+                        <input type="range" min="0" max="20" value="1" class="slider" id="compressorMakeup">
+                        <span class="value" id="compressorMakeupOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="compressorRatio">Ratio</label>
+                        <input type="range" min="1" max="20" value="4" class="slider" id="compressorRatio">
+                        <span class="value" id="compressorRatioOutput"></span>
+                    </div>
+                </div>
+                <input type="checkbox" id="effect4" name="effect4" value="Bitcrusher" onclick="validate('effect4','slideContainer4')">
+                <label for="effect4">Bitcrusher</label><br>
+                <div class="slideContainer" style="display: none;" id="slideContainer4">
+                    <div class="control-row">
+                        <label for="bitcrusherBits">Bits</label>
+                        <input type="range" min="1" max="16" value="4" class="slider" id="bitcrusherBits">
+                        <span class="value" id="bitcrusherBitsOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="bitcrusherFreq">Frequency</label>
+                        <input type="range" min="0" max="100" value="10" class="slider" id="bitcrusherFreq">
+                        <span class="value" id="bitcrusherFreqOutput"></span>
+                    </div>
+                </div>
+                <input type="checkbox" id="effect5" name="effect5" value="Phaser" onclick="validate('effect5','slideContainer5')">
+                <label for="effect5">Phaser</label><br>
+                <div class="slideContainer" style="display: none;" id="slideContainer5">
+                    <div class="control-row">
+                        <label for="phaserRate">Rate</label>
+                        <input type="range" min="0" max="8" step="0.1" value="0.1" class="slider" id="phaserRate">
+                        <span class="value" id="phaserRateOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="phaserDepth">Depth</label>
+                        <input type="range" min="0" max="100" value="60" class="slider" id="phaserDepth">
+                        <span class="value" id="phaserDepthOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="phaserFeedback">Feedback</label>
+                        <input type="range" min="0" max="100" value="70" class="slider" id="phaserFeedback">
+                        <span class="value" id="phaserFeedbackOutput"></span>
+                    </div>
+                </div>
+                <button onclick="applyEffects()">Apply Effects Only</button>
+
+
+                <h4>Audio Filters</h4>
+
+                <!-- Low Pass -->
+                <input type="checkbox" id="filterLPF" onclick="validate('filterLPF','LPFcontainer')">
+                <label for="filterLPF">Low Pass Filter</label><br>
+                <div id="LPFcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="LPFfreq">Cutoff Frequency</label>
+                        <input type="range" id="LPFfreq" min="20" max="20000" value="1000">
+                        <span id="LPFFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="LPFQ">Q Factor</label>
+                        <input type="range" id="LPFQ" min="0.1" max="20" step="0.1" value="1">
+                        <span id="LPFQOutput"></span>
+                    </div>
+                </div>
+                <!-- High Pass -->
+                <input type="checkbox" id="filterHPF" onclick="validate('filterHPF','HPFcontainer')">
+                <label for="filterHPF">High Pass Filter</label><br>
+                <div id="HPFcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="HPFfreq"> Cutoff Frequency</label>
+                        <input type="range" id="HPFfreq" min="20" max="20000" value="500">
+                        <span id="HPFFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="HPFQ">Q Factor</label>
+                        <input type="range" id="HPFQ" min="0.1" max="20" step="0.1" value="1">
+                        <span id="HPFQOutput"></span>
+                    </div>
+                </div>
+
+                <!-- Band Pass -->
+                <input type="checkbox" id="filterBPF" onclick="validate('filterBPF','BPFcontainer')">
+                <label for="filterBPF">Band Pass Filter</label><br>
+                <div id="BPFcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="BPFfreq">Centre Frequency</label>
+                        <input type="range" id="BPFfreq" min="50" max="10000" value="1000">
+                        <span id="BPFFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="BPFQ">Q Factor</label>
+                        <input type="range" id="BPFQ" min="0.1" max="20" step="0.1" value="1">
+                        <span id="BPFQOutput"></span>
+                    </div>
+                </div>
+
+                <!-- Notch or Band Stop Filter -->
+                <input type="checkbox" id="filterNotch" onclick="validate('filterNotch','Notchcontainer')">
+                <label for="filterNotch">Notch Filter</label><br>
+                <div id="Notchcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="Notchfreq">Centre Frequency</label>
+                        <input type="range" id="Notchfreq" min="50" max="10000" value="1000">
+                        <span id="NotchFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="NotchQ">Q Factor</label>
+                        <input type="range" id="NotchQ" min="0.1" max="1" step="0.1" value="0.5"> <!-- restricted Q values to hear notch filter better -->
+                        <span id="NotchQOutput"></span>
+                    </div>
+                </div>
+
+                <!-- Peaking EQ -->
+                <input type="checkbox" id="filterPeak" onclick="validate('filterPeak','Peakcontainer')">
+                <label for="filterPeak">Peaking Filter</label><br>
+                <div id="Peakcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="Peakfreq">Centre Frequency</label>
+                        <input type="range" id="Peakfreq" min="50" max="20000" value="2000">
+                        <span id="PeakFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="PeakQ">Q Factor</label>
+                        <input type="range" id="PeakQ" min="0.1" max="20" step="0.1" value="1"> 
+                        <span id="PeakQOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="PeakGain">Gain (db)</label>
+                        <input type="range" id="PeakGain" min="-18" max="18" value="0">
+                        <span id="PeakGainOutput"></span>
+                    </div>
+                </div>
+
+                <!-- Add 5 more filters -->
+                <!-- Low Shelf -->
+                <input type="checkbox" id="filterLowShelf" onclick="validate('filterLowShelf','LowShelfcontainer')">
+                <label for="filterLowShelf">Low Shelf Filter</label><br>
+                <div id="LowShelfcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="LowShelffreq">Centre Frequency</label>
+                        <input type="range" id="LowShelffreq" min="50" max="20000" value="2000">
+                        <span id="LowShelfFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="LowShelfQ">Q Factor</label>
+                        <input type="range" id="LowShelfQ" min="0.1" max="20" step="0.1" value="1"> 
+                        <span id="LowShelfQOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="LowShelfGain">Gain (db)</label>
+                        <input type="range" id="LowShelfGain" min="-18" max="18" value="0">
+                        <span id="LowShelfGainOutput"></span>
+                    </div>
+                </div>
+
+                <!-- High Shelf -->
+                <input type="checkbox" id="filterHighShelf" onclick="validate('filterHighShelf','HighShelfcontainer')">
+                <label for="filterHighShelf">High Shelf Filter</label><br>
+                <div id="HighShelfcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="HighShelffreq">Centre Frequency</label>
+                        <input type="range" id="HighShelffreq" min="50" max="20000" value="2000">
+                        <span id="HighShelfFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="HighShelfQ">Q Factor</label>
+                        <input type="range" id="HighShelfQ" min="0.1" max="20" step="0.1" value="1"> 
+                        <span id="HighShelfQOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="HighShelfGain">Gain (db)</label>
+                        <input type="range" id="HighShelfGain" min="-18" max="18" value="0">
+                        <span id="HighShelfGainOutput"></span>
+                    </div>
+                </div>
+
+                <!-- All pass filter -->
+                <input type="checkbox" id="filterAllPass" onclick="validate('filterAllPass','AllPasscontainer')">
+                <label for="filterAllPass">All Pass Filter</label><br>
+                <div id="AllPasscontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="AllPassfreq">Centre Frequency</label>
+                        <input type="range" id="AllPassfreq" min="50" max="20000" value="2000">
+                        <span id="AllPassFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="AllPassQ">Q Factor</label>
+                        <input type="range" id="AllPassQ" min="0.1" max="20" step="0.1" value="1"> 
+                        <span id="AllPassQOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="AllPassGain">Gain (db)</label>
+                        <input type="range" id="AllPassGain" min="-18" max="18" value="0">
+                        <span id="AllPassGainOutput"></span>
+                    </div>
+                </div>
+
+                <!-- WahWah filter -->
+                <input type="checkbox" id="filterWahWah" onclick="validate('filterWahWah','WahWahcontainer')">
+                <label for="filterWahWah">WahWah Filter</label><br>
+                <div id="WahWahcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="WahWahfreq">Base Frequency</label>
+                        <input type="range" id="WahWahfreq" min="0.0" max="1.0" step="0.01" value="0.5">
+                        <span id="WahWahFreqOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="WahWahOctaves">Excursion Octaves</label>
+                        <input type="range" id="WahWahOctaves" min="1" max="6" step="0.1" value="3.0"> 
+                        <span id="WahWahOctavesOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="WahWahSweep">Sweep</label>
+                        <input type="range" id="WahWahSweep" min="0.0" max="1.0" step="0.01" value="0.5">
+                        <span id="WahWahSweepOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="WahWahResonance">Resonance</label>
+                        <input type="range" id="WahWahResonance" min="1" max="20" step="0.5" value="10">
+                        <span id="WahWahResonanceOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="WahWahSensitivity">Sensitivity</label>
+                        <input type="range" id="WahWahSensitivity" min="-1.0" max="1.0" step="0.01" value="0.5">
+                        <span id="WahWahSensitivityOutput"></span>
+                    </div>
+                </div>
+
+                <!-- Moog Filter -->
+                <input type="checkbox" id="filterMoog" onclick="validate('filterMoog','Moogcontainer')">
+                <label for="filterMoog">Moog Filter</label><br>
+                <div id="Moogcontainer" class="slideContainer" style="display:none">
+                    <div class="control-row">
+                        <label for="MoogCutoff">Cutoff</label>
+                        <input type="range" id="MoogCutoff" min="0.0" max="1.0" step="0.001" value="0.065">
+                        <span id="MoogCutoffOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="MoogResonance">Resonance</label>
+                        <input type="range" id="MoogResonance" min="0.0" max="4.0" step="0.1" value="3.5">
+                        <span id="MoogResonanceOutput"></span>
+                    </div>
+                    <div class="control-row">
+                        <label for="MoogBufferSize">Buffer Size</label>
+                        <input type="range" id="MoogBufferSize" min="256" max="16384" step="256" value="4096">
+                        <span id="MoogBufferSizeOutput"></span>
+                    </div>
+                </div>
+
+                <button onclick="applyFilters()">Apply Filters Only</button>
+            </div>
+
+            <button onclick="apply()">Apply All</button>
+            <button onclick="play()">Play</button>
+            <button onclick="pauseAudio()">Pause</button>
+            <button onclick="restartAudio()">Restart</button>
+            <br><label for="downloadFormat">Format:</label>
+            <select id="downloadFormat">
+                <option value="wav" selected>WAV</option>
+                <option value="mp3">MP3</option>
+            </select>
+            <button onclick="downloadCurrentEdits()">Download</button>
+        </div>
+        <div class="logContainer">
+            <b class="log_header">Logs</b>
+            <div class="logs" id="logs"></div>
+        </div>
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.0/lame.min.js"></script>
+    <script src="script.js"></script>
+</html>

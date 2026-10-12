@@ -1,0 +1,72 @@
+.title{
+    background-color: rgb(255, 255, 255);
+    border: 10px solid rgb(255, 255, 255);
+    border-radius: 5px;
+    position: relative;
+    justify-self: center;
+}
+
+
+.bg {
+    background-color: grey;
+}
+
+.center {
+    position: relative;
+    background-color: white;
+    height: 500px;
+    width: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-self: center;
+    top: 40px;
+    border: 10px solid blueviolet;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.audioContainer{
+    overflow: hidden;
+    width: 600px;
+    height: 340px;
+    overflow-y: scroll;
+    margin: 20px;
+}
+
+
+.logContainer {
+    position: relative;
+    width: 150px;
+    height: 500px;
+    overflow-y: scroll;
+
+}
+
+.log_header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    width: 100%;
+    display: inline-block;
+}
+
+/* Layout for a single control row: label on the left, slider on the right */
+.control-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+}
+.control-row label {
+    width: 160px; /* fixed label column width */
+    text-align: left;
+    margin: 0; /* override default margin-bottom */
+}
+.control-row input[type="range"] {
+    flex: 1; /* slider grows to fill remaining space */
+}
+.control-row .value {
+    width: 48px;
+    text-align: right;
+    font-size: 0.9em;
+}
